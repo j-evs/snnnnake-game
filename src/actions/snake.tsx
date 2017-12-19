@@ -11,6 +11,7 @@ export interface Move {
 
 
 export function ChangeDirection(newDirection: string): ChangeDirection {
+    console.log('newDirection', newDirection);
     return {
         type: constants.CHANGE_DIRECTION,
         newDirection

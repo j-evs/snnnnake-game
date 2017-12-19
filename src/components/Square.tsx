@@ -3,10 +3,14 @@ import './Square.css';
 
 class Square extends React.Component<any, any> {
     render() {
-        const {width, height} = this.props;
+        const { isSnake } = this.props;
+        let className = 'square';
+        if ( isSnake ) {
+            className += ' snake';
+        }
         return (
-            <div className="square">{width}{height}</div>
+            <div className={className}></div>
         );
     }
-  }
+}
 export default Square;

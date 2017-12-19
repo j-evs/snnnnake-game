@@ -1,12 +1,19 @@
 import * as React from 'react';
 
+import { connect } from 'react-redux';
+import { RootState } from '../reducers';
+
 import Grid from './Grid';
 
 class Game extends React.Component<any, any> {
     render() {
         return (
-            <Grid />
+            <Grid {...this.props}/>
         );
     }
 }
-export default Game;
+
+function mapStateToProps( state: RootState ) {
+    return state.snake;
+}
+export default connect(mapStateToProps)(Game);

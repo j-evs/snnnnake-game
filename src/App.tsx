@@ -20,7 +20,6 @@ export interface State {
 
 class Layout extends React.Component<Props, State> {
     render() {
-        console.log('props', this.props)
         return (
             <div className="primary-layout">
                 <header>

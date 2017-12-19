@@ -4,3 +4,7 @@
     height: 20px;
     display: inline-block;
 }
+
+.snake {
+    background-color: red;
+}
