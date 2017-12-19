@@ -1,22 +1,48 @@
 import * as React from 'react';
 import './App.css';
 
-const logo = require('./logo.svg');
+import { connect } from 'react-redux';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+import { RootState } from './reducers';
+
+import { Route, BrowserRouter } from 'react-router-dom';
+
+import Game from './components/Game';
+import Settings from './components/Settings';
+
+export interface Props {
+
 }
 
-export default App;
+export interface State {
+
+}
+
+class Layout extends React.Component<Props, State> {
+    render() {
+        console.log('props', this.props)
+        return (
+            <div className="primary-layout">
+                <header>
+                    Our React Router 4 App
+                </header>
+                <main>
+                    <Route path="/start" exact component={Game} />
+                    <Route path="/settings" component={Settings} />
+                </main>
+            </div>
+        );
+    }
+}
+
+function mapStateToProps( state: RootState ) {
+    return state;
+}
+
+const App = (props: Props) => (
+    <BrowserRouter>
+        <Layout {...props}/>
+    </BrowserRouter>
+)
+
+export default connect( mapStateToProps )( App );

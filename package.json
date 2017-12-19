@@ -11,9 +11,13 @@
   },
   "dependencies": {
     "@types/react-redux": "^5.0.14",
+    "@types/react-router": "^4.0.19",
+    "@types/react-router-dom": "^4.2.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "redux": "^3.7.2"
   },
   "scripts": {
