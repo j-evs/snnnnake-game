@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { RootState } from './reducers';
 
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter, NavLink } from 'react-router-dom';
 
 import Game from './components/Game';
 import Settings from './components/Settings';
@@ -24,6 +24,10 @@ class Layout extends React.Component<Props, State> {
             <div className="primary-layout">
                 <header>
                     Our React Router 4 App
+                    <nav>
+                        <NavLink to="/start">Start</NavLink>
+                        <NavLink to="/settings">Settings</NavLink>
+                    </nav>
                 </header>
                 <main>
                     <Route path="/start" exact component={Game} />

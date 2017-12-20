@@ -13,11 +13,12 @@ export interface Coord {
 }
 
 export interface BodyState extends Array<Coord> { };
+export interface Food extends Coord { };
 
 export interface State {
     direction: string,
     body: BodyState,
-    food: Coord
+    food: Food
 }
 
 const initialState: State = {

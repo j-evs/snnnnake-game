@@ -8,7 +8,7 @@ export interface State {
 
 const initialState: State = {
     width: 10,
-    height: 10
+    height: 20
 }
 
 export function reducer( state = initialState, action: SettingsActions ): State {

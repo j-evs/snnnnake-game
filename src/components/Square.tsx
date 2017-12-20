@@ -1,12 +1,16 @@
 import * as React from 'react';
 import './Square.css';
 
-class Square extends React.Component<any, any> {
+class Square extends React.PureComponent<any, any> {
     render() {
-        const { isSnake } = this.props;
+        const { isSnake, isFood } = this.props;
         let className = 'square';
         if ( isSnake ) {
             className += ' snake';
+        }
+
+        if ( isFood ) {
+            className += ' food'
         }
         return (
             <div className={className}></div>

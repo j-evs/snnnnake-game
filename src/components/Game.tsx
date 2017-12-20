@@ -14,6 +14,6 @@ class Game extends React.Component<any, any> {
 }
 
 function mapStateToProps( state: RootState ) {
-    return state.snake;
+    return state;
 }
 export default connect(mapStateToProps)(Game);

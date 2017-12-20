@@ -1,16 +1,17 @@
 import * as React from 'react';
 
+import './Grid.css';
 import Square from './Square';
 
-import { BodyState, Coord } from '../reducers/snake';
-import { Move, ChangeDirection } from '../actions/snake';
+import { BodyState, Food, Coord } from '../reducers/snake';
+import { CheckDestination, ChangeDirection } from '../actions/snake';
 
 import { setInterval } from 'timers';
 class Grid extends React.Component<any, any> {
     timer: NodeJS.Timer | number | null;
     
     componentDidMount() {
-        this.timer = setInterval(() => this.props.dispatch(Move()), 1000);
+        this.timer = setInterval(() => this.props.dispatch(CheckDestination()), 600);
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
 
@@ -19,7 +20,6 @@ class Grid extends React.Component<any, any> {
     }
 
     handleKeyDown(event: React.KeyboardEvent<Document>): any {
-        console.log('event', event);
         const LEFT_ARROW = 37;
         const RIGHT_ARROW = 39;
         const UP_ARROW = 38;
@@ -43,31 +43,42 @@ class Grid extends React.Component<any, any> {
     }
 
     createMatrix(width: number, height: number) {
-        const from1toHeightArray = Array.from(Array(height).keys()).map(x => x++);
+        const from1toHeightArray = Array.from(Array(height).keys()).map(y => ++y);
         return from1toHeightArray.map(height => this.createRow(width, height));
     }
 
     isSnake = (snakeCoords: BodyState, x: number, y: number) => {
         return snakeCoords.some((coord: Coord) => coord.x === x && coord.y === y);
     }
-    
+
+    isFood = (foodCoords: Food, x: number, y: number) => {
+        return (foodCoords.x === x) && (foodCoords.y === y);
+    }
+
     createRow(width: number, rowNumber: number) {
-        const from1toWidthArray: number[] = Array.from(Array(width).keys()).map(x => x++);
-        const snakeCoords = this.props.body;
+        const from1toWidthArray: number[] = Array.from(Array(width).keys()).map(x => ++x);
+        const {body: snakeCoords, food: foodCoords } = this.props.snake;
         return (
             <div>
                 {from1toWidthArray.map(width => {
-                    return <Square x={width} y={rowNumber} isSnake={this.isSnake(snakeCoords, width, rowNumber)} />
+                    return <Square
+                            x={width}
+                            y={rowNumber}
+                            isSnake={this.isSnake(snakeCoords, width, rowNumber)}
+                            isFood={this.isFood(foodCoords, width, rowNumber)}/>
                 })}
             </div>
         );
     }
 
     render() {
-        const width = 10;
-        const height = 20;
+        const {width, height} = this.props.settings;
         const squaresMatrix = this.createMatrix(width, height);
-        return squaresMatrix;
+
+        return (
+        <div className="border">
+            {squaresMatrix}
+        </div>);
     }
   }
 export default Grid;

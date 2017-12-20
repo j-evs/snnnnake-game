@@ -85,11 +85,13 @@ function isFood(nextHeadPosition: Coord, food: Coord) {
 
 function isDeadEnd(nextHeadPosition:Coord, body:BodyState, settings: SettingsState) {
     const isBodyCollision = body.some((bodyCell: Coord) => isSameCoords(bodyCell, nextHeadPosition));
-    const isBoundariesCollision = nextHeadPosition.x < 1 
+    const isBoundariesCollision = nextHeadPosition.x < 1
         || nextHeadPosition.y < 1 
         || nextHeadPosition.x > settings.width
         || nextHeadPosition.y > settings.height;
 
+
+        
     return isBodyCollision || isBoundariesCollision;
 }
 
@@ -103,19 +105,19 @@ function isSameCoords(coords1: Coord, coords2: Coord) {
 function getNewFoodPosition(settings: SettingsState, body: BodyState) {
     const { width, height } = settings;
     const availableXArray: number[] = Array
-        .from(Array(width).keys()).map(x => x++)
+        .from(Array(width).keys()).map(x => ++x)
         .filter(x => {
-            return body.some((bodyCell: Coord) => bodyCell.x === x);
+            return body.some((bodyCell: Coord) => bodyCell.x !== x);
         });
 
     const availableYArray: number[] = Array
-        .from(Array(height).keys()).map(y => y++)
+        .from(Array(height).keys()).map(y => ++y)
         .filter(y => {
-            return body.some((bodyCell: Coord) => bodyCell.y === y);
+            return body.some((bodyCell: Coord) => bodyCell.y !== y);
         });
     
     const randomX = availableXArray[Math.floor(availableXArray.length * Math.random())]
-    const randomY = availableXArray[Math.floor(availableYArray.length * Math.random())]
+    const randomY = availableYArray[Math.floor(availableYArray.length * Math.random())]
     
     return {x: randomX, y: randomY};
 }

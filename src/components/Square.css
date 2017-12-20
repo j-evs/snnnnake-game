@@ -1,5 +1,4 @@
 .square {
-    background-color: blue;
     width: 20px;
     height: 20px;
     display: inline-block;
@@ -7,4 +6,8 @@
 
 .snake {
     background-color: red;
+}
+
+.food {
+    background-color: yellow;
 }
