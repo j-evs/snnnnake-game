@@ -1,5 +1,5 @@
 import { Actions as SnakeActions } from '../actions/snake';
-import { MOVE, CHANGE_DIRECTION } from '../constants/index';
+import { MOVE, CHANGE_DIRECTION, GROW, CREATE_FOOD } from '../constants/index';
 
 // import { combineReducers } from 'redux';
 
@@ -16,20 +16,26 @@ export interface BodyState extends Array<Coord> { };
 
 export interface State {
     direction: string,
-    body: BodyState
+    body: BodyState,
+    food: Coord
 }
 
 const initialState: State = {
     direction: 'RIGHT',
-    body: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }]
+    body: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }],
+    food: {x: 4, y: 4}
 }
 
 export function reducer( state = initialState, action: SnakeActions ): State {
-    console.log( 'state', state.direction );
-    // console.log( 'action', action )
     switch ( action.type ) {
         case CHANGE_DIRECTION:
             return { ...state, direction: isDirectionReverse( state.direction, action.newDirection ) ? state.direction : action.newDirection }
+        case GROW: {
+            return {...state, body: growBody(state)}
+        }
+        case CREATE_FOOD: {
+            return {...state, food: action.newFood}
+        }
         case MOVE: {
             return { ...state, body: updateBodyPosition( state ) }
         }
@@ -39,18 +45,9 @@ export function reducer( state = initialState, action: SnakeActions ): State {
 
 //helpers
 function updateBodyPosition( { direction, body }: { direction: string, body: BodyState } ): BodyState {
-    const { x, y } = getHeadPosition( body );
-    switch ( direction ) {
-        case 'RIGHT':
-            return [...body.slice( 1 ), { x: x + 1, y }];
-        case 'UP':
-            return [...body.slice( 1 ), { x, y: y - 1 }];
-        case 'DOWN':
-            return [...body.slice( 1 ), { x, y: y + 1 }];
-        case 'LEFT':
-            return [...body.slice( 1 ), { x: x - 1, y }];
-    }
-    return body;
+    const nextHeadPosition = getNextHeadPosition(body, direction);
+
+    return [...body.slice( 1 ), nextHeadPosition];
 }
 
 function isDirectionReverse( oldDirection: string, newDirection: string ) {
@@ -66,4 +63,25 @@ function isDirectionReverse( oldDirection: string, newDirection: string ) {
 
 function getHeadPosition( body: BodyState ) {
     return body[body.length - 1];
+}
+
+export function getNextHeadPosition(body: BodyState, direction: string) {
+    const headPosition = getHeadPosition(body);
+    const { x, y } = headPosition;
+    switch ( direction ) {
+        case 'RIGHT':
+            return { x: x + 1, y };
+        case 'UP':
+            return { x, y: y - 1 };
+        case 'DOWN':
+            return { x, y: y + 1 };
+        case 'LEFT':
+            return { x: x - 1, y };
+    }
+    return headPosition;
+}
+
+function growBody( { direction, body }: { direction: string, body: BodyState } ): BodyState {
+    const nextHeadPosition = getNextHeadPosition(body, direction);
+    return [...body, nextHeadPosition];
 }
