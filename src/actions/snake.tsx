@@ -28,6 +28,16 @@ export interface CreateFood {
     newFood: Coord
 }
 
+export interface Reset {
+    type: constants.RESET
+}
+
+export function Reset(): Reset {
+    return {
+        type: constants.RESET
+    }
+}
+
 
 export function ChangeDirection(newDirection: string): ChangeDirection {
     return {
@@ -123,4 +133,4 @@ function getNewFoodPosition(settings: SettingsState, body: BodyState) {
 }
 
 
-export type Actions = ChangeDirection | Move | Grow | GameOver | CreateFood;
+export type Actions = ChangeDirection | Move | Grow | GameOver | CreateFood | Reset;

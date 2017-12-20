@@ -1,5 +1,5 @@
 import { Actions as SnakeActions } from '../actions/snake';
-import { MOVE, CHANGE_DIRECTION, GROW, CREATE_FOOD } from '../constants/index';
+import { MOVE, CHANGE_DIRECTION, GROW, CREATE_FOOD, RESET } from '../constants/index';
 
 // import { combineReducers } from 'redux';
 
@@ -30,16 +30,20 @@ const initialState: State = {
 export function reducer( state = initialState, action: SnakeActions ): State {
     switch ( action.type ) {
         case CHANGE_DIRECTION:
-            return { ...state, direction: isDirectionReverse( state.direction, action.newDirection ) ? state.direction : action.newDirection }
+            return { ...state, direction: isDirectionReverse( state.direction, action.newDirection ) ? state.direction : action.newDirection };
         case GROW: {
-            return {...state, body: growBody(state)}
+            return {...state, body: growBody(state)};
         }
         case CREATE_FOOD: {
-            return {...state, food: action.newFood}
+            return {...state, food: action.newFood};
         }
         case MOVE: {
-            return { ...state, body: updateBodyPosition( state ) }
+            return { ...state, body: updateBodyPosition( state ) };
         }
+        case RESET: {
+            return initialState;
+        }
+
     }
     return state;
 }

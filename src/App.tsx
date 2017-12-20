@@ -23,13 +23,13 @@ class Layout extends React.Component<Props, State> {
         return (
             <div className="primary-layout">
                 <header>
-                    Our React Router 4 App
-                    <nav>
-                        <NavLink to="/start">Start</NavLink>
-                        <NavLink to="/settings">Settings</NavLink>
+                    <h1 className="title">Mega Snake</h1>
+                    <nav className="nav">
+                        <NavLink className="link" to="/start">Start</NavLink>
+                        <NavLink className="link" to="/settings">Settings</NavLink>
                     </nav>
                 </header>
-                <main>
+                <main className="wrapper">
                     <Route path="/start" exact component={Game} />
                     <Route path="/settings" component={Settings} />
                 </main>

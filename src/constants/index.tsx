@@ -18,3 +18,6 @@ export type CHANGE_SETTINGS = typeof CHANGE_SETTINGS;
 
 export const CREATE_FOOD = 'CREATE_FOOD';
 export type CREATE_FOOD = typeof CREATE_FOOD;
+
+export const RESET = 'RESET';
+export type RESET = typeof RESET;

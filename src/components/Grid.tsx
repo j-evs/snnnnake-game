@@ -6,17 +6,19 @@ import Square from './Square';
 import { BodyState, Food, Coord } from '../reducers/snake';
 import { CheckDestination, ChangeDirection } from '../actions/snake';
 
-import { setInterval } from 'timers';
 class Grid extends React.Component<any, any> {
-    timer: NodeJS.Timer | number | null;
-    
+    timer: number;
+    boundHandleKeyDown: EventListener
+
     componentDidMount() {
-        this.timer = setInterval(() => this.props.dispatch(CheckDestination()), 600);
-        document.addEventListener("keydown", this.handleKeyDown.bind(this));
+        this.timer = window.setInterval(() => this.props.dispatch(CheckDestination()), 100);
+        this.boundHandleKeyDown = this.handleKeyDown.bind(this);
+        document.addEventListener("keydown", this.boundHandleKeyDown);
     }
 
     componentWillUnmount() {
-        this.timer = null;
+        clearInterval(this.timer);
+        document.removeEventListener("keydown", this.boundHandleKeyDown)
     }
 
     handleKeyDown(event: React.KeyboardEvent<Document>): any {
