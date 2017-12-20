@@ -1,26 +1,27 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { rootReducer, RootState } from './reducers';
+import thunk from 'redux-thunk';
 
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-// const composeEnhancers = (
-//   process.env.NODE_ENV === 'development' &&
-//   window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-// ) || compose;
+const composeEnhancers = (
+  process.env.NODE_ENV === 'development' &&
+  composeWithDevTools
+) || compose;
 
 function configureStore( initialState?: RootState ) {
     // configure middlewares
-    //   const middlewares = [
-    //     createEpicMiddleware(rootEpic),
-    //   ];
+      const middlewares = [
+        thunk
+      ];
     // compose enhancers
-    //   const enhancer = composeEnhancers(
-    //     applyMiddleware(...middlewares),
-    //   );
+      const enhancer = composeEnhancers(
+        applyMiddleware(...middlewares),
+      );
     // create store
     return createStore(
         rootReducer,
-        initialState
-        // enhancer,
+        enhancer
     );
 }
 
