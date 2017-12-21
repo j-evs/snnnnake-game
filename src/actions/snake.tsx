@@ -77,7 +77,7 @@ export function CheckDestination(): ThunkAction<Move|Grow|GameOver|CreateFood,Ro
         const { snake: {direction, body, food}, settings } = getState();
         const nextHeadPosition = getNextHeadPosition(body, direction);
         if (isFood(nextHeadPosition, food)) {
-            const newFood = getNewFoodPosition(settings, body);
+            const newFood = getNewFoodPosition(settings, body, food);
             dispatch(Grow());
             return dispatch(CreateFood(newFood));
         } else if (isDeadEnd(nextHeadPosition, body, settings)) {
@@ -110,24 +110,29 @@ function isSameCoords(coords1: Coord, coords2: Coord) {
     return xCoords1 === xCoords2 && yCoords1 === yCoords2;
 }
 
-function getNewFoodPosition(settings: SettingsState, body: BodyState) {
+function getNewFoodPosition(settings: SettingsState, body: BodyState, oldFood: Coord) {
     const { width, height } = settings;
+    
     const availableXArray: number[] = Array
         .from(Array(width).keys()).map(x => ++x)
-        .filter(x => {
-            return body.some((bodyCell: Coord) => bodyCell.x !== x);
-        });
 
     const availableYArray: number[] = Array
-        .from(Array(height).keys()).map(y => ++y)
-        .filter(y => {
-            return body.some((bodyCell: Coord) => bodyCell.y !== y);
-        });
-    
-    const randomX = availableXArray[Math.floor(availableXArray.length * Math.random())]
-    const randomY = availableYArray[Math.floor(availableYArray.length * Math.random())]
-    
-    return {x: randomX, y: randomY};
+        .from(Array(height).keys()).map(y => ++y);
+
+    const nonAvailableArray = [...body, oldFood];
+
+    const coords: Coord[] = [];
+    for (let x = 1; x <= availableXArray.length; x++) {
+        for (let y = 1; y <= availableYArray.length; y++) {
+            coords.push({x, y});
+        }
+    }
+
+    const result = coords.filter(coord => {
+        return !nonAvailableArray.some((bodyCell: Coord) => bodyCell.y === coord.y && bodyCell.x === coord.x);
+    });
+
+    return result[Math.floor(result.length * Math.random())];
 }
 
 

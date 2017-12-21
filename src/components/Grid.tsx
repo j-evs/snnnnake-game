@@ -22,7 +22,7 @@ class Grid extends React.Component<GridProps, {}> {
     boundHandleKeyDown: EventListener;
 
     componentDidMount() {
-        this.timer = window.setInterval( () => this.props.dispatch( CheckDestination() ), 500 );
+        this.timer = window.setInterval( () => this.props.dispatch( CheckDestination() ), 300 );
         this.boundHandleKeyDown = this.handleKeyDown.bind(this);
         document.addEventListener( 'keydown', this.boundHandleKeyDown );
     }
@@ -33,6 +33,9 @@ class Grid extends React.Component<GridProps, {}> {
     }
 
     handleKeyDown = ( event: React.KeyboardEvent<Document> ): void => {
+        const canChangeDirection = this.props.snake.canChangeDirection;
+
+        if (!canChangeDirection) return;
         const LEFT_ARROW = 37;
         const RIGHT_ARROW = 39;
         const UP_ARROW = 38;

@@ -19,20 +19,28 @@ export interface State {
     direction: string,
     body: BodyState,
     food: Food
-    gameOver: boolean
+    gameOver: boolean,
+    canChangeDirection: boolean
 }
 
 const initialState: State = {
     direction: 'RIGHT',
     body: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }],
     food: {x: 4, y: 4},
-    gameOver: false
+    gameOver: false,
+    canChangeDirection: true
 }
 
 export function reducer( state = initialState, action: SnakeActions ): State {
     switch ( action.type ) {
         case CHANGE_DIRECTION:
-            return { ...state, direction: isDirectionReverse( state.direction, action.newDirection ) ? state.direction : action.newDirection };
+            return {
+                 ...state,
+                direction: isDirectionReverse( state.direction, action.newDirection )
+                    ? state.direction
+                    : action.newDirection,
+                canChangeDirection: false 
+            };
         case GROW: {
             return {...state, body: growBody(state)};
         }
@@ -40,7 +48,7 @@ export function reducer( state = initialState, action: SnakeActions ): State {
             return {...state, food: action.newFood};
         }
         case MOVE: {
-            return { ...state, body: updateBodyPosition( state ) };
+            return { ...state, body: updateBodyPosition( state ), canChangeDirection: true };
         }
         case GAME_OVER: {
             return { ...state, gameOver: true}
