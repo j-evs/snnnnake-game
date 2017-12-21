@@ -25,7 +25,7 @@ class Game extends React.Component<any, any> {
 
     render() {
         return this.props.snake.gameOver
-        ? <GameOver startAgain={this.startAgain} />
+        ? <GameOver startAgain={this.startAgain} score={this.props.snake.body.length - 3}/>
         : <Grid {...this.props}/>
     }
 }

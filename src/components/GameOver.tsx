@@ -1,13 +1,16 @@
 import * as React from 'react';
 
 interface GameOverProps {
-    startAgain: () => any
+    startAgain: () => any,
+    score: number
 }
 
-export const GameOver: React.SFC<GameOverProps> = (props) => {
+export const GameOver: React.SFC<GameOverProps> = ({score, startAgain}) => {
     return (
         <div>
-            Game over. Want to <button onClick={props.startAgain}>try again?</button>
+            <p>Game over.</p>
+            <p>Your score is {score} </p>
+            <p>Want to <button onClick={startAgain}>try again?</button></p>
         </div>
     );
 }

@@ -29,9 +29,13 @@ class Settings extends React.Component<SettingsProps, State> {
         const value = Number( target.value );
         const name = target.name;
 
-        name === 'width'
-            ? this.setState( { width: value } )
-            : this.setState( { height: value } )
+        if (name === 'width') {
+            if (value < 5 || value > 60) return;
+            return this.setState( { width: value } )
+        }
+
+        if (value < 5 || value > 30) return;
+        this.setState( { height: value } );
     }
 
     handleSubmit = ( event: React.ChangeEvent<HTMLFormElement> ) => {
@@ -44,7 +48,7 @@ class Settings extends React.Component<SettingsProps, State> {
         return (
             <form className="form" onSubmit={this.handleSubmit}>
                 <div className="form-field">
-                    <label>Width:</label>
+                    <label>Width (min 5, max 60):</label>
                     <input
                         className="form-field__input"
                         name="width"
@@ -53,7 +57,7 @@ class Settings extends React.Component<SettingsProps, State> {
                         onChange={this.handleInputChange} />
                 </div>
                 <div className="form-field">
-                    <label>Height:</label>
+                    <label>Height (min 5, max 30):</label>
                     <input
                         className="form-field__input"
                         name="height"
