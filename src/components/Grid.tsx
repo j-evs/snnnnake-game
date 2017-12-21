@@ -15,9 +15,9 @@ export interface GridProps {
 }
 
 class Grid extends React.Component<GridProps, {}> {
+
     // boundHandleKeyDown needed for TS to accept (e: React.KeyboardEvent<Document>): void
     // as EventListenerOrEventListenerObject type
-
     timer: number;
     boundHandleKeyDown: EventListener;
 
@@ -60,7 +60,7 @@ class Grid extends React.Component<GridProps, {}> {
 
     createMatrix = ( width: number, height: number ) => {
         const from1toHeightArray = Array.from( Array( height ).keys() ).map( y => ++y );
-        return from1toHeightArray.map( height => this.createRow( width, height ) );
+        return from1toHeightArray.map( rowNumber => this.createRow( width, rowNumber ) );
     }
 
     isSnake = ( snakeCoords: BodyState, x: number, y: number ) => {
@@ -76,11 +76,12 @@ class Grid extends React.Component<GridProps, {}> {
         const { body: snakeCoords, food: foodCoords } = this.props.snake;
         return (
             <div>
-                {from1toWidthArray.map( width => {
+                {from1toWidthArray.map((colNumber, index) => {
                     return (
                         <Square
-                            isSnake={this.isSnake( snakeCoords, width, rowNumber )}
-                            isFood={this.isFood( foodCoords, width, rowNumber )} 
+                            key={index}
+                            isSnake={this.isSnake( snakeCoords, colNumber, rowNumber )}
+                            isFood={this.isFood( foodCoords, colNumber, rowNumber )} 
                         />
                     );
                 })}

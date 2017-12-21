@@ -13,6 +13,6 @@ export const GameOver: React.SFC<GameOverProps> = ({score, startAgain}) => {
             <p>Want to <button onClick={startAgain}>try again?</button></p>
         </div>
     );
-}
+};
 
 export default GameOver;

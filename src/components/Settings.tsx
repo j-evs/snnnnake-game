@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 export interface SettingsProps {
     width: number,
     height: number
-    dispatch: ( action: any ) => void;
+    dispatch: ( action: any ) => void
 }
 
 interface State {
@@ -31,7 +31,7 @@ class Settings extends React.Component<SettingsProps, State> {
 
         if (name === 'width') {
             if (value < 5 || value > 60) return;
-            return this.setState( { width: value } )
+            return this.setState( { width: value } );
         }
 
         if (value < 5 || value > 30) return;
@@ -54,7 +54,8 @@ class Settings extends React.Component<SettingsProps, State> {
                         name="width"
                         type="number"
                         value={this.state.width}
-                        onChange={this.handleInputChange} />
+                        onChange={this.handleInputChange}
+                    />
                 </div>
                 <div className="form-field">
                     <label>Height (min 5, max 30):</label>
@@ -63,7 +64,8 @@ class Settings extends React.Component<SettingsProps, State> {
                         name="height"
                         type="number"
                         value={this.state.height}
-                        onChange={this.handleInputChange} />
+                        onChange={this.handleInputChange}
+                    />
                 </div>
                 <button type="submit">Apply settings</button>
             </form>

@@ -1,19 +1,23 @@
 import { Actions as SnakeActions } from '../actions/snake';
 import { MOVE, CHANGE_DIRECTION, GROW, CREATE_FOOD, RESET, GAME_OVER } from '../constants/index';
 
-// import { combineReducers } from 'redux';
+const initialState: State = {
+    direction: 'RIGHT',
+    body: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }],
+    food: {x: 4, y: 4},
+    gameOver: false,
+    canChangeDirection: true
+};
 
-// import { reducer as body, State as BodyState } from './body';
-
-// import { StoreState } from '../types/index';
-
+// Interfaces
 export interface Coord {
     x: number,
     y: number
 }
 
-export interface BodyState extends Array<Coord> { };
-export interface Food extends Coord { };
+export interface BodyState extends Array<Coord> { }
+
+export interface Food extends Coord { }
 
 export interface State {
     direction: string,
@@ -23,15 +27,8 @@ export interface State {
     canChangeDirection: boolean
 }
 
-const initialState: State = {
-    direction: 'RIGHT',
-    body: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }],
-    food: {x: 4, y: 4},
-    gameOver: false,
-    canChangeDirection: true
-}
-
-export function reducer( state = initialState, action: SnakeActions ): State {
+// Reducer
+export function reducer( state: State = initialState, action: SnakeActions ): State {
     switch ( action.type ) {
         case CHANGE_DIRECTION:
             return {
@@ -51,17 +48,17 @@ export function reducer( state = initialState, action: SnakeActions ): State {
             return { ...state, body: updateBodyPosition( state ), canChangeDirection: true };
         }
         case GAME_OVER: {
-            return { ...state, gameOver: true}
+            return { ...state, gameOver: true};
         }
         case RESET: {
             return initialState;
         }
-
+        default:
+            return state;
     }
-    return state;
 }
 
-//helpers
+// Helpers
 function updateBodyPosition( { direction, body }: { direction: string, body: BodyState } ): BodyState {
     const nextHeadPosition = getNextHeadPosition(body, direction);
 
@@ -72,8 +69,8 @@ function isDirectionReverse( oldDirection: string, newDirection: string ) {
     const vertical = ['UP', 'DOWN'];
     const horizontal = ['LEFT', 'RIGHT'];
 
-    if ( (vertical.indexOf( oldDirection ) != -1 && vertical.indexOf( newDirection ) != -1)
-        || (horizontal.indexOf( oldDirection ) != -1 && horizontal.indexOf( newDirection ) != -1 )) {
+    if ( (vertical.indexOf( oldDirection ) !== -1 && vertical.indexOf( newDirection ) !== -1)
+        || (horizontal.indexOf( oldDirection ) !== -1 && horizontal.indexOf( newDirection ) !== -1 )) {
         return true;
     }
     return false;
@@ -95,8 +92,9 @@ export function getNextHeadPosition(body: BodyState, direction: string) {
             return { x, y: y + 1 };
         case 'LEFT':
             return { x: x - 1, y };
+        default:
+            return { x, y };
     }
-    return headPosition;
 }
 
 function growBody( { direction, body }: { direction: string, body: BodyState } ): BodyState {
