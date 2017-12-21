@@ -1,5 +1,5 @@
 import { Actions as SnakeActions } from '../actions/snake';
-import { MOVE, CHANGE_DIRECTION, GROW, CREATE_FOOD, RESET } from '../constants/index';
+import { MOVE, CHANGE_DIRECTION, GROW, CREATE_FOOD, RESET, GAME_OVER } from '../constants/index';
 
 // import { combineReducers } from 'redux';
 
@@ -19,12 +19,14 @@ export interface State {
     direction: string,
     body: BodyState,
     food: Food
+    gameOver: boolean
 }
 
 const initialState: State = {
     direction: 'RIGHT',
     body: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }],
-    food: {x: 4, y: 4}
+    food: {x: 4, y: 4},
+    gameOver: false
 }
 
 export function reducer( state = initialState, action: SnakeActions ): State {
@@ -39,6 +41,9 @@ export function reducer( state = initialState, action: SnakeActions ): State {
         }
         case MOVE: {
             return { ...state, body: updateBodyPosition( state ) };
+        }
+        case GAME_OVER: {
+            return { ...state, gameOver: true}
         }
         case RESET: {
             return initialState;

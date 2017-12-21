@@ -100,8 +100,6 @@ function isDeadEnd(nextHeadPosition:Coord, body:BodyState, settings: SettingsSta
         || nextHeadPosition.x > settings.width
         || nextHeadPosition.y > settings.height;
 
-
-        
     return isBodyCollision || isBoundariesCollision;
 }
 
