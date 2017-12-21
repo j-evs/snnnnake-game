@@ -1,20 +1,26 @@
 import * as React from 'react';
 import './Square.css';
 
-class Square extends React.PureComponent<any, any> {
+export interface SquareProps {
+    isSnake: boolean,
+    isFood: boolean
+}
+
+class Square extends React.PureComponent<SquareProps, {}> {
     render() {
         const { isSnake, isFood } = this.props;
+
         let className = 'square';
         if ( isSnake ) {
             className += ' snake';
         }
-
         if ( isFood ) {
-            className += ' food'
+            className += ' food';
         }
         return (
-            <div className={className}></div>
+            <div className={className} />
         );
     }
 }
+
 export default Square;

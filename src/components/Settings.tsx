@@ -7,45 +7,34 @@ import { ChangeSettings } from '../actions/settings';
 
 import { connect } from 'react-redux';
 
-export interface Props {
+export interface SettingsProps {
     width: number,
     height: number
-    dispatch?: ( action: any ) => void;
+    dispatch: ( action: any ) => void;
 }
 
-export interface State {
+interface State {
     width: number,
     height: number
 }
 
-class Settings extends React.Component<any, any> {
-    constructor( props: Props ) {
-        super( props );
-        const { width, height } = this.props;
-        this.state = {
-            width,
-            height
-        };
+class Settings extends React.Component<SettingsProps, State> {
+    state: State = {
+        width: this.props.width,
+        height: this.props.height
+    };
 
-        this.handleInputChange = this.handleInputChange.bind( this );
-        this.handleSubmit = this.handleSubmit.bind( this );
-    }
-
-    handleInputChange( event: React.ChangeEvent<HTMLInputElement> ) {
+    handleInputChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
         const target = event.target;
         const value = Number( target.value );
         const name = target.name;
-
-        // this.setState({
-        //   [name]: value
-        // });
 
         name === 'width'
             ? this.setState( { width: value } )
             : this.setState( { height: value } )
     }
 
-    handleSubmit( event: React.ChangeEvent<HTMLFormElement> ) {
+    handleSubmit = ( event: React.ChangeEvent<HTMLFormElement> ) => {
         event.preventDefault();
         const { width, height } = this.state;
         this.props.dispatch( ChangeSettings( { width, height } ) );

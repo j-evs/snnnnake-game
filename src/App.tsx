@@ -10,15 +10,9 @@ import { Route, BrowserRouter, NavLink } from 'react-router-dom';
 import Game from './components/Game';
 import Settings from './components/Settings';
 
-export interface Props {
+interface Props extends RootState {}
 
-}
-
-export interface State {
-
-}
-
-class Layout extends React.Component<Props, State> {
+class Layout extends React.Component<Props, {}> {
     render() {
         return (
             <div className="primary-layout">
@@ -42,10 +36,10 @@ function mapStateToProps( state: RootState ) {
     return state;
 }
 
-const App = (props: Props) => (
+const App = ( props: Props ) => (
     <BrowserRouter>
-        <Layout {...props}/>
+        <Layout {...props} />
     </BrowserRouter>
-)
+);
 
 export default connect( mapStateToProps )( App );
