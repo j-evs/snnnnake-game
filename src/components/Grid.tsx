@@ -71,6 +71,11 @@ class Grid extends React.Component<GridProps, {}> {
         return ( foodCoords.x === x ) && ( foodCoords.y === y );
     }
 
+    isHead = ( snakeCoords: BodyState, x: number, y: number ) => {
+        const {x: headX, y: headY} = snakeCoords[snakeCoords.length - 1];
+        return x === headX && y === headY;
+    }
+
     createRow = ( width: number, rowNumber: number ) => {
         const from1toWidthArray: number[] = Array.from( Array( width ).keys() ).map( x => ++x );
         const { body: snakeCoords, food: foodCoords } = this.props.snake;
@@ -81,7 +86,8 @@ class Grid extends React.Component<GridProps, {}> {
                         <Square
                             key={index}
                             isSnake={this.isSnake( snakeCoords, colNumber, rowNumber )}
-                            isFood={this.isFood( foodCoords, colNumber, rowNumber )} 
+                            isFood={this.isFood( foodCoords, colNumber, rowNumber )}
+                            isHead={this.isHead( snakeCoords, colNumber, rowNumber )}
                         />
                     );
                 })}

@@ -2,14 +2,63 @@
     width: 20px;
     height: 20px;
     display: inline-block;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #6ba368;
+    background-color: #e6fafc;
+
 }
 
 .snake {
-    background-color: red;
-    border: 1px solid red;
+    background: #e6fafc url('/assets/dota.png') center center;
+    background-size: cover;
+    border: 1px solid #e6fafc;
 }
 
-.food {
-    background-color: yellow;
+.navi {
+    background: #e6fafc url('/assets/navi.png') center center;
+    background-size: cover;
+}
+
+.eg {
+    background: #e6fafc url('/assets/eg.png') center center;
+    background-size: cover;
+}
+
+.empire {
+    background: #e6fafc url('/assets/empire.png') center center;
+    background-size: cover;
+}
+
+.fnatic {
+    background: #e6fafc url('/assets/fnatic.png') center center;
+    background-size: cover;
+}
+
+.liquid {
+    background: #e6fafc url('/assets/liquid.png') center center;
+    background-size: cover;
+}
+
+.newbee {
+    background: #e6fafc url('/assets/newbee.png') center center;
+    background-size: cover;
+}
+
+.og {
+    background: #e6fafc url('/assets/og.png') center center;
+    background-size: cover;
+}
+
+.secret {
+    background: #e6fafc url('/assets/secret.png') center center;
+    background-size: cover;
+}
+
+.spirit {
+    background: #e6fafc url('/assets/spirit.png') center center;
+    background-size: cover;
+}
+
+.vp {
+    background: #e6fafc url('/assets/vp.png') center center;
+    background-size: cover;
 }

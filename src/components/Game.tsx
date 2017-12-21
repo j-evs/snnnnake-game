@@ -22,9 +22,18 @@ class Game extends React.Component<GameProps, {}> {
     }
 
     render() {
-        return this.props.snake.gameOver
-        ? <GameOver startAgain={this.startAgain} score={this.props.snake.body.length - 3}/>
-        : <Grid {...this.props}/>;
+        const score = this.props.snake.body.length - 3;
+
+        if (this.props.snake.gameOver) {
+            return <GameOver startAgain={this.startAgain} score={this.props.snake.body.length - 3}/>;
+        }
+
+        return (
+            <div>
+                <Grid {...this.props}/>
+                <div>Score: {score}</div>
+            </div>
+        );
     }
 }
 

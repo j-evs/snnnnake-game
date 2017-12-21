@@ -1,3 +1,22 @@
+body {
+    background-color: #c8d6af;
+    color: #393E41;
+}
+
+a {
+    color: #393E41;
+}
+
+button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #393e41;
+    text-decoration: underline;
+    padding: 0;
+    cursor: pointer;
+}
+
 .wrapper {
     display: flex;
     justify-content: center;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './GameOver.css';
 
 interface GameOverProps {
     startAgain: () => any,
@@ -7,10 +8,10 @@ interface GameOverProps {
 
 export const GameOver: React.SFC<GameOverProps> = ({score, startAgain}) => {
     return (
-        <div>
-            <p>Game over.</p>
-            <p>Your score is {score} </p>
-            <p>Want to <button onClick={startAgain}>try again?</button></p>
+        <div className="gameover">
+            <p className="gameover__info">Game over</p>
+            <p className="gameover__info">Your score is {score} </p>
+            <p className="gameover__info">Want to <button onClick={startAgain}>try again?</button></p>
         </div>
     );
 };
