@@ -80,7 +80,7 @@ class Grid extends React.Component<GridProps, {}> {
         const from1toWidthArray: number[] = Array.from( Array( width ).keys() ).map( x => ++x );
         const { body: snakeCoords, food: foodCoords } = this.props.snake;
         return (
-            <div>
+            <div key={rowNumber}>
                 {from1toWidthArray.map((colNumber, index) => {
                     return (
                         <Square
